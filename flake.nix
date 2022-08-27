@@ -1,6 +1,10 @@
 {
   description = "tA's vim setup";
   inputs = {
+    noon-vim-src = {
+      url = "github:urbit/urbit";
+      flake = false;
+    };
     nixpkgs = {
       url = "github:NixOS/nixpkgs/nixos-unstable";
     };
@@ -27,7 +31,7 @@
     };
   };
   outputs = { self, nixpkgs, flake-utils, rainbow-vim-src
-            , vim-racket-src, slimv-src, idris2-src, ... }: 
+            , vim-racket-src, slimv-src, idris2-src, hoon-vim-src, ... }: 
   let
     customPlugins = pkgs: {
       rainbow-vim = pkgs.vimUtils.buildVimPlugin {
@@ -45,6 +49,10 @@
       idris2 = pkgs.vimUtils.buildVimPlugin {
         name = "idris2";
         src = idris2-src;
+      };
+      hoon-vim = pkgs.vimUtils.buildVimPlugin {
+        name = "hoon-vim";
+        src = hoon-vim-src;
       };
     };
   in flake-utils.lib.eachDefaultSystem (system:
